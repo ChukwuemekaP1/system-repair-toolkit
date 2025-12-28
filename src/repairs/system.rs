@@ -6,7 +6,17 @@ use sysinfo::System;
 use tokio::time::sleep;
 use std::time::Duration;
 
-pub async fn analyze_cpu(sys: &mut System, config: &Config) -> RepairResult<()> {
+/// Analyzes CPU usage and identifies high-usage processes if necessary.
+/// 
+/// # Arguments
+/// 
+/// * `sys` - A mutable reference to the System object.
+/// * `config` - A reference to the application configuration.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if analysis completes.
+pub async fn analyze_cpu(sys: &mut System, config: &Config) -> RepairResult<() > {
     info!("Analyzing CPU usage");
 
     print_step(1, "Measuring CPU usage...");
@@ -43,7 +53,17 @@ pub async fn analyze_cpu(sys: &mut System, config: &Config) -> RepairResult<()> 
     Ok(())
 }
 
-pub async fn analyze_memory(sys: &mut System, config: &Config) -> RepairResult<()> {
+/// Analyzes memory usage and identifies high-memory processes if necessary.
+/// 
+/// # Arguments
+/// 
+/// * `sys` - A mutable reference to the System object.
+/// * `config` - A reference to the application configuration.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if analysis completes.
+pub async fn analyze_memory(sys: &mut System, config: &Config) -> RepairResult<() > {
     info!("Analyzing memory usage");
 
     print_step(1, "Measuring memory usage...");
@@ -80,7 +100,16 @@ pub async fn analyze_memory(sys: &mut System, config: &Config) -> RepairResult<(
     Ok(())
 }
 
-pub async fn check_firewall(config: &Config) -> RepairResult<()> {
+/// Checks the firewall configuration.
+/// 
+/// # Arguments
+/// 
+/// * `config` - A reference to the application configuration.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if check completes.
+pub async fn check_firewall(config: &Config) -> RepairResult<() > {
     info!("Checking firewall status");
 
     print_step(1, "Checking firewall configuration...");
@@ -91,7 +120,16 @@ pub async fn check_firewall(config: &Config) -> RepairResult<()> {
     Ok(())
 }
 
-pub async fn check_updates(config: &Config) -> RepairResult<()> {
+/// Checks for system updates.
+/// 
+/// # Arguments
+/// 
+/// * `config` - A reference to the application configuration.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if check completes.
+pub async fn check_updates(config: &Config) -> RepairResult<() > {
     info!("Checking for system updates");
 
     print_step(1, "Querying update status...");

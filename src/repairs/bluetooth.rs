@@ -91,7 +91,11 @@ pub async fn repair(config: &Config) -> RepairResult<()> {
 }
 
 /// Detects Bluetooth hardware on the system
+///
+/// Returns true if Bluetooth hardware is detected, false otherwise.
+/// Handles both Windows and Unix systems.
 async fn detect_hardware() -> RepairResult<bool> {
+
     if cfg!(target_os = "windows") {
         detect_hardware_windows().await
     } else {
@@ -100,6 +104,9 @@ async fn detect_hardware() -> RepairResult<bool> {
 }
 
 /// Detects Bluetooth hardware on Windows
+///
+/// Uses PowerShell to query for Bluetooth devices.
+/// Returns the count of detected Bluetooth entities.
 async fn detect_hardware_windows() -> RepairResult<bool> {
     let output = tokio::task::spawn_blocking(|| {
         Command::new("powershell")
@@ -122,6 +129,8 @@ async fn detect_hardware_windows() -> RepairResult<bool> {
 }
 
 /// Detects Bluetooth hardware on Unix systems
+///
+/// Uses hciconfig to check for Bluetooth interfaces.
 async fn detect_hardware_unix() -> RepairResult<bool> {
     let output = tokio::task::spawn_blocking(|| Command::new("hciconfig").output())
         .await
@@ -132,6 +141,8 @@ async fn detect_hardware_unix() -> RepairResult<bool> {
 }
 
 /// Restarts the Bluetooth service
+///
+/// Dispatches to platform-specific restart functions.
 async fn restart_service() -> RepairResult<()> {
     if cfg!(target_os = "windows") {
         restart_service_windows().await
@@ -141,6 +152,9 @@ async fn restart_service() -> RepairResult<()> {
 }
 
 /// Checks if the process is running with administrator privileges
+///
+/// On Windows, checks via net session command.
+/// On other platforms, assumes true.
 async fn is_admin() -> bool {
     if cfg!(not(target_os = "windows")) {
         return true; // For non-Windows, assume sufficient privileges or handle differently
@@ -160,6 +174,8 @@ async fn is_admin() -> bool {
 }
 
 /// Restarts Bluetooth service on Windows
+///
+/// First checks for admin privileges, then restarts all Bluetooth-related services using PowerShell.
 async fn restart_service_windows() -> RepairResult<()> {
     if !is_admin().await {
         return Err(RepairError::PermissionDenied);
@@ -184,6 +200,8 @@ async fn restart_service_windows() -> RepairResult<()> {
 }
 
 /// Restarts Bluetooth service on Unix
+///
+/// Unblocks Bluetooth via rfkill and restarts the bluetooth service using systemctl.
 async fn restart_service_unix() -> RepairResult<()> {
     // First, unblock if blocked
     let _ = tokio::task::spawn_blocking(|| {
@@ -212,6 +230,8 @@ async fn restart_service_unix() -> RepairResult<()> {
 }
 
 /// Verifies that the Bluetooth service is running
+///
+/// Dispatches to platform-specific verification functions.
 async fn verify_service_running() -> RepairResult<bool> {
     if cfg!(target_os = "windows") {
         verify_service_windows().await
@@ -221,6 +241,8 @@ async fn verify_service_running() -> RepairResult<bool> {
 }
 
 /// Verifies Bluetooth service on Windows
+///
+/// Checks the status of bthserv service using PowerShell.
 async fn verify_service_windows() -> RepairResult<bool> {
     let output = tokio::task::spawn_blocking(|| {
         Command::new("powershell")
@@ -238,6 +260,8 @@ async fn verify_service_windows() -> RepairResult<bool> {
 }
 
 /// Verifies Bluetooth service on Unix
+///
+/// Uses systemctl to check if bluetooth service is active.
 async fn verify_service_unix() -> RepairResult<bool> {
     let output = tokio::task::spawn_blocking(|| {
         Command::new("systemctl")
@@ -254,6 +278,9 @@ async fn verify_service_unix() -> RepairResult<bool> {
 // Add this new function after verify_service_unix
 
 /// Checks the health of Bluetooth devices
+///
+/// On Windows, checks for Bluetooth devices with status not OK.
+/// On Unix, checks if the interface is UP RUNNING using hciconfig.
 async fn check_bluetooth_health() -> RepairResult<bool> {
     if cfg!(target_os = "windows") {
         let output = tokio::task::spawn_blocking(|| {

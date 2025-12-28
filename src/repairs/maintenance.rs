@@ -5,6 +5,15 @@ use log::info;
 use tokio::time::sleep;
 use std::time::Duration;
 
+/// Simulates clearing temporary files from the system.
+/// 
+/// # Arguments
+/// 
+/// * `config` - A reference to the application configuration.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if cleanup simulation completes.
 pub async fn clear_temp_files(config: &Config) -> RepairResult<()> {
     info!("Clearing temporary files");
 
@@ -36,6 +45,15 @@ pub async fn clear_temp_files(config: &Config) -> RepairResult<()> {
     Ok(())
 }
 
+/// Analyzes startup programs and provides recommendations.
+/// 
+/// # Arguments
+/// 
+/// * `config` - A reference to the application configuration.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if analysis completes.
 pub async fn analyze_startup(config: &Config) -> RepairResult<()> {
     info!("Analyzing startup programs");
 

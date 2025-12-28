@@ -7,6 +7,17 @@ use std::process::Command;
 use tokio::time::sleep;
 use std::time::Duration;
 
+/// Initiates the audio repair process.
+/// 
+/// This function detects audio devices and restarts audio services if devices are found.
+/// 
+/// # Arguments
+/// 
+/// * `config` - A reference to the application configuration.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if repair succeeds, or an error if issues are encountered.
 pub async fn repair(config: &Config) -> RepairResult<()> {
     info!("Starting audio repair");
 
@@ -34,6 +45,13 @@ pub async fn repair(config: &Config) -> RepairResult<()> {
     Ok(())
 }
 
+/// Detects available audio devices on the system.
+/// 
+/// Uses platform-specific commands to check for audio hardware.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<bool>` - True if audio devices are detected, false otherwise.
 async fn detect_audio_devices() -> RepairResult<bool> {
     if cfg!(target_os = "windows") {
         let output = tokio::task::spawn_blocking(|| {
@@ -61,6 +79,13 @@ async fn detect_audio_devices() -> RepairResult<bool> {
     }
 }
 
+/// Restarts the audio service on the system.
+/// 
+/// Uses platform-specific commands to stop and start audio services.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if restart succeeds, or an error if commands fail.
 async fn restart_audio_service() -> RepairResult<()> {
     if cfg!(target_os = "windows") {
         tokio::task::spawn_blocking(|| Command::new("net").args(&["stop", "audiosrv"]).output())

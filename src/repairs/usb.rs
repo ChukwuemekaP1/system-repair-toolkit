@@ -6,6 +6,17 @@ use std::process::Command;
 use tokio::time::sleep;
 use std::time::Duration;
 
+/// Initiates the USB repair process.
+/// 
+/// This function scans for USB devices and simulates resetting USB controllers.
+/// 
+/// # Arguments
+/// 
+/// * `config` - A reference to the application configuration.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if repair succeeds, or an error if issues are encountered.
 pub async fn repair(config: &Config) -> RepairResult<()> {
     info!("Starting USB repair");
 
@@ -26,6 +37,13 @@ pub async fn repair(config: &Config) -> RepairResult<()> {
     Ok(())
 }
 
+/// Scans for connected USB devices on the system.
+/// 
+/// Uses platform-specific commands to detect and count USB devices.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if scan succeeds, with status printed.
 async fn scan_usb_devices() -> RepairResult<()> {
     if cfg!(target_os = "windows") {
         let output = tokio::task::spawn_blocking(|| {

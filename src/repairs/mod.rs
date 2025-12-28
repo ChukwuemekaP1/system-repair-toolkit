@@ -11,13 +11,22 @@ use crate::types::SystemIssue;
 use sysinfo::System;
 
 // Declare submodules
+
+/// Bluetooth repair implementation
 pub mod bluetooth;
+/// WiFi repair implementation
 pub mod wifi;
+/// Audio device repair implementation
 pub mod audio;
+/// USB device repair implementation
 pub mod usb;
+/// Disk management and cleanup
 pub mod disk;
+/// System-level analysis and checks
 pub mod system;
+/// Maintenance tasks like temp files and startup
 pub mod maintenance;
+/// RAM health monitoring and analysis
 pub mod ram;
 
 /// Main repair coordinator structure
@@ -107,5 +116,6 @@ mod tests {
         assert!(result.is_ok());
     }
 }
+
 
 

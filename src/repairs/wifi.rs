@@ -11,7 +11,16 @@ use std::process::{Command, Stdio};
 use tokio::time::sleep;
 use std::time::Duration;
 
+/// Executes a system command asynchronously
+///
+/// # Arguments
+///
+/// * `program` - The command to run
+/// * `args` - Arguments for the command
+///
+/// Returns the output if successful, or an error if the command fails.
 async fn execute_command(program: &str, args: &[&str]) -> RepairResult<std::process::Output> {
+
     let command_str = format!("{} {}", program, args.join(" "));
     info!("Executing command: {}", command_str);
 

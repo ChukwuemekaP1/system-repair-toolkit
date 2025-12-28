@@ -2,6 +2,7 @@ use anyhow::Result;
 use colored::*;
 use log::{error, info};
 use std::io::{self, Write};
+use tokio::time::sleep;
 use std::time::Duration;
 
 use system_repair_toolkit::{
@@ -51,8 +52,7 @@ async fn run_application(
         show_banner();
         show_main_menu();
 
-        let issues = SystemIssue::all();
-        match get_user_choice(issues.len())? {
+        match get_user_choice(13)? {
             Some(0) => {
                 clear_screen();
                 println!("{}", "╔══════════════════════════════════════════════╗".bright_cyan());
@@ -63,7 +63,8 @@ async fn run_application(
                 break;
             }
             Some(idx) => {
-                let issue = &issues[idx - 1]; // Adjust for 1-based indexing
+                let issues = SystemIssue::all();
+                let issue = &issues[idx];
 
                 if issue == &SystemIssue::AdvancedCommands {
                     show_advanced_menu(config).await?;
@@ -182,7 +183,7 @@ fn get_user_choice(max_option: usize) -> Result<Option<usize>> {
 
     match input.trim().parse::<usize>() {
         Ok(0) => Ok(Some(0)),
-        Ok(n) if n > 0 && n <= max_option => Ok(Some(n)), // Return raw input for non-zero values
+        Ok(n) if n > 0 && n <= max_option => Ok(Some(n - 1)),
         _ => {
             println!("{}", "Invalid selection! Try again.".bright_red());
             std::thread::sleep(Duration::from_secs(1));

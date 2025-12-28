@@ -6,6 +6,18 @@ use sysinfo::{System, Disks};
 use tokio::time::sleep;
 use std::time::Duration;
 
+/// Performs disk cleanup operations.
+/// 
+/// Analyzes disk usage and simulates clearing system caches.
+/// 
+/// # Arguments
+/// 
+/// * `_sys` - A mutable reference to the System object (currently unused).
+/// * `config` - A reference to the application configuration.
+/// 
+/// # Returns
+/// 
+/// * `RepairResult<()>` - Ok if cleanup succeeds.
 pub async fn cleanup(_sys: &mut System, config: &Config) -> RepairResult<()> {
     info!("Starting disk cleanup");
 
