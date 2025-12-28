@@ -125,13 +125,11 @@ max_retries = 3
 
 ## Screenshots
 
-![Screenshot 1](https://via.placeholder.com/800x600?text=Screenshot+1)
+![Main Menu](images/main_menu.png)
 
-![Screenshot 2](https://via.placeholder.com/800x600?text=Screenshot+2)
+![Repair Process](images/repair_process.png)
 
-![Screenshot 3](https://via.placeholder.com/800x600?text=Screenshot+3)
-
-*Replace these placeholders with your actual screenshots.*
+![Advanced Tools](images/advanced_tools.png)
 
 ## How It Works
 
@@ -161,4 +159,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 For more information, visit our [documentation](https://ChukwuemekaP1.github.io/system-repair-toolkit/) or contact the maintainers.
+
 

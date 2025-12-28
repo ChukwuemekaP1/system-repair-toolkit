@@ -21,7 +21,7 @@ async fn main() -> Result<()> {
     // Initialize logging
     init_logger(&config);
 
-    info!("System Repair Toolkit v3.0 starting");
+    info!("System Repair Toolkit v1.0 starting");
     info!(
         "Configuration: verbose={}, confirm_actions={}",
         config.verbose, config.confirm_actions

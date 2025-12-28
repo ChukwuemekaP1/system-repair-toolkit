@@ -83,7 +83,7 @@ pub fn show_banner() {
     );
     println!(
         "{}",
-        "║     SYSTEM REPAIR TOOLKIT v3.0               ║".bright_cyan()
+        "║     SYSTEM REPAIR TOOLKIT v1.0               ║".bright_cyan()
     );
     println!(
         "{}",

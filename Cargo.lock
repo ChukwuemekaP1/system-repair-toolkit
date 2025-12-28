@@ -833,7 +833,7 @@ dependencies = [
 
 [[package]]
 name = "system-repair-toolkit"
-version = "3.0.0"
+version = "1.0.0"
 dependencies = [
  "anyhow",
  "chrono",
