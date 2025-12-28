@@ -56,7 +56,7 @@ We envision this toolkit becoming an essential part of every system administrato
 ### Building from Source
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/system-repair-toolkit.git
+   git clone https://github.com/ChukwuemekaP1/system-repair-toolkit.git
    cd system-repair-toolkit
    ```
 
@@ -123,6 +123,16 @@ show_progress = true
 max_retries = 3
 ```
 
+## Screenshots
+
+![Screenshot 1](https://via.placeholder.com/800x600?text=Screenshot+1)
+
+![Screenshot 2](https://via.placeholder.com/800x600?text=Screenshot+2)
+
+![Screenshot 3](https://via.placeholder.com/800x600?text=Screenshot+3)
+
+*Replace these placeholders with your actual screenshots.*
+
 ## How It Works
 
 1. **Initialization**: Loads configuration and sets up logging.
@@ -150,4 +160,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-For more information, visit our [documentation](https://yourusername.github.io/system-repair-toolkit/) or contact the maintainers.
+For more information, visit our [documentation](https://ChukwuemekaP1.github.io/system-repair-toolkit/) or contact the maintainers.
+
