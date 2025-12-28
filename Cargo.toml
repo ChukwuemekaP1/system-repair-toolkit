@@ -1,0 +1,70 @@
+[package]
+name = "system-repair-toolkit"
+version = "3.0.0"
+edition = "2021"
+authors = ["Chukwuemeka Paul Nwokolo , nwokolopaul979@gmail.com"]
+description = "Professional system diagnostic and repair toolkit for Windows"
+license = "MIT"
+repository = "https://github.com/username/system-repair-toolkit"
+keywords = ["cli", "system", "repair", "diagnostic", "windows"]
+categories = ["command-line-utilities"]
+readme = "README.md"
+default-run = "system-repair-toolkit"
+
+[dependencies]
+# Terminal UI and visualization
+colored = "2.1"
+indicatif = "0.17"
+
+# System information and metrics
+sysinfo = "0.30"
+
+# Async runtime for non-blocking operations
+tokio = { version = "1.35", features = ["full"] }
+futures = "0.3"
+
+# Logging infrastructure
+log = "0.4"
+env_logger = "0.11"
+
+# Configuration and serialization
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Utilities
+chrono = "0.4"
+regex = "1.10"
+
+[dev-dependencies]
+# Testing utilities
+tempfile = "3.8"
+serial_test = "3.0"
+
+[profile.release]
+# Maximum optimization for production Windows deployment
+opt-level = 3           # Highest optimization
+lto = "fat"             # Full link-time optimization
+codegen-units = 1       # Maximum optimization at cost of compile time
+strip = true            # Remove debug symbols
+panic = "abort"         # Smaller binary, faster panic handling
+
+[profile.dev]
+# Fast compilation for development
+opt-level = 0
+debug = true
+
+[profile.test]
+# Reasonable performance for tests
+opt-level = 1
+
+[[bin]]
+name = "system-repair-toolkit"
+path = "src/main.rs"
+
+[lib]
+name = "system_repair_toolkit"
+path = "src/lib.rs"
